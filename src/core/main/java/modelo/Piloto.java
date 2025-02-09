@@ -20,8 +20,6 @@ public class Piloto {
     }
 
     public static Piloto Instancia(Long id, String nombre, String apellido, String nombreCompleto, String abreviasion, String url) throws ExcepcionPiloto {
-        if(id==null)
-            throw new ExcepcionPiloto("El id del piloto no puede ser nulo");
         if(nombre==null && nombre.isEmpty())
             throw new ExcepcionPiloto("Nombre Nulo");
 

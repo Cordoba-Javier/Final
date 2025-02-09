@@ -4,7 +4,6 @@ package ar.edu.undec.pilotos.contoller;
 import ar.edu.undec.pilotos.entidad.PilotoDTO;
 import ar.edu.undec.pilotos.mapeo.Mapeo;
 import input.EntradaPiloto;
-import modelo.Piloto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

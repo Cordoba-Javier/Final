@@ -36,6 +36,10 @@ public class PilotoData {
         return new PilotoData(piloto.getId(), piloto.getNombre(), piloto.getApellido(), piloto.getNombreCompleto(), piloto.getAbreviasion(), piloto.getUrl());
     }
 
+    public static PilotoData instancia(PilotoDTO piloto) {
+        return new PilotoData(piloto.getIdpiloto(), piloto.getNombre(), piloto.getApellido(), piloto.getNombreCompleto(), piloto.getAbreviasion(), piloto.getUrl());
+    }
+
     public Long getIdpiloto() {
         return idpiloto;
     }

@@ -17,15 +17,13 @@ public class RegistrarPiloto implements EntradaPiloto {
 
     @Override
     public boolean cargarPiloto(Piloto piloto) throws ExcepcionPiloto {
-
-        if(registrarPilotoRepositorio.existeNombre(piloto.getNombre()))
-            throw new ExcepcionPiloto("Nombre ya existe");
-
-        if(registrarPilotoRepositorio.existeAbreviasion(piloto.getAbreviasion()))
-            throw new ExcepcionPiloto("Abreviasion ya existe");
-
-        registrarPilotoRepositorio.guardarPiloto(piloto);
-        return true;
+        try{
+            if (!registrarPilotoRepositorio.existeNombre(piloto.getNombre()) || !registrarPilotoRepositorio.existeAbreviasion(piloto.getAbreviasion()))
+                registrarPilotoRepositorio.guardarPiloto(piloto);
+            return true;
+        }catch (Exception ex){
+            throw new ExcepcionPiloto("Nombre o Abreviason ya exitiste ");
+        }
     }
 
     @Override

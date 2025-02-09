@@ -16,4 +16,8 @@ public class Mapeo {
     public static Piloto mapeoDTOCore(PilotoDTO piloto)throws Exception{
         return Piloto.Instancia(piloto.getIdpiloto(), piloto.getNombre(), piloto.getApellido(), piloto.getNombreCompleto(), piloto.getAbreviasion(), piloto.getUrl());
     }
+
+    public static PilotoData mapeoDTOData(PilotoDTO pilotoDTO) {
+        return PilotoData.instancia(pilotoDTO);
+    }
 }

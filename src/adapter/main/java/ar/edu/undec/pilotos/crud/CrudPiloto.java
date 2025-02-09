@@ -14,5 +14,4 @@ public interface CrudPiloto extends CrudRepository<PilotoData, Long> {
     boolean existsByNombre(String nombre);
     boolean existsByAbreviasion(String abreviasion);
     Optional<?> getByNombre(String nombre);
-    List<Piloto> getPilotoDataBy();
 }

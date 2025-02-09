@@ -2,6 +2,7 @@ package ar.edu.undec.pilotos.crudRepositorio;
 
 import ar.edu.undec.pilotos.crud.CrudPiloto;
 import ar.edu.undec.pilotos.mapeo.Mapeo;
+import excepciones.ExcepcionPiloto;
 import modelo.Piloto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -9,11 +10,15 @@ import repositorio.RegistrarPilotoRepositorio;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Repository
 public class CrudRepositorio implements RegistrarPilotoRepositorio {
 
     CrudPiloto crudPiloto;
+
 
     @Autowired
     CrudRepositorio (CrudPiloto crudPiloto) {
@@ -47,6 +52,15 @@ public class CrudRepositorio implements RegistrarPilotoRepositorio {
 
     @Override
     public List<Piloto> getPilotos() {
-        return crudPiloto.getPilotoDataBy();
+            return StreamSupport.stream(crudPiloto.findAll().spliterator(), false)
+                    .map(pilotoData -> {
+                        try {
+                            return Mapeo.maperoDataCore(pilotoData); // Llama al mapeo
+                        } catch (Exception e) {
+                            System.err.println("Error al mapear: " + e.getMessage());
+                            return null;  // O manejarlo de alguna otra forma, como retornar un valor por defecto
+                        }
+                    })
+                    .collect(Collectors.toList());
     }
 }
