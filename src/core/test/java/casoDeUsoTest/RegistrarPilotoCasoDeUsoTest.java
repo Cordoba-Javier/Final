@@ -6,6 +6,7 @@ import modelo.Piloto;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import repositorio.RegistrarPilotoRepositorio;
@@ -20,12 +21,16 @@ public class RegistrarPilotoCasoDeUsoTest {
     @Mock
     RegistrarPilotoRepositorio registrarPilotoRepositorio;
 
+    @InjectMocks
+    private RegistrarPiloto registrarPiloto;
+
 
 
     @Test
     void registrarPilotoNoExiste()throws ExcepcionPiloto {
-        Piloto miPiloto=Piloto.Instancia((Integer) 45,"nombre","apellido","nombreCompleto","abreviasion","url");
-        RegistrarPiloto registrarPiloto=new RegistrarPiloto(registrarPilotoRepositorio);
+        Random random = new Random();
+        Piloto miPiloto=Piloto.Instancia(random.nextInt(),"nombre","apellido","nombreCompleto","abreviasion","url");
+
 
         when(registrarPilotoRepositorio.existeNombre(miPiloto.getNombre())).thenReturn(false);
         when(registrarPilotoRepositorio.existeAbreviasion(miPiloto.getAbreviasion())).thenReturn(false);
@@ -38,28 +43,26 @@ public class RegistrarPilotoCasoDeUsoTest {
 
     @Test
     void registrarPilotoYaExisteNombre()throws ExcepcionPiloto {
-        //Arrage
-        Piloto miPiloto=Piloto.Instancia((Integer) 45,"nombre","apellido","nombreCompleto","abreviasion","url");
-        RegistrarPiloto registrarPiloto=new RegistrarPiloto(registrarPilotoRepositorio);
-        //Act
+        Random random = new Random();
+        Piloto miPiloto=Piloto.Instancia(random.nextInt(),"nombre","apellido","nombreCompleto","abreviasion","url");
 
         when(registrarPilotoRepositorio.existeNombre(miPiloto.getNombre())).thenReturn(true);
 
         boolean resultado=registrarPiloto.cargarPiloto(miPiloto);
-        //Assert
+
         Assertions.assertFalse(resultado);
     }
 
     @Test
     void registrarPilotoYaExisteAbreviacion()throws ExcepcionPiloto {
-        //Arrage
-        Piloto miPiloto=Piloto.Instancia((Integer) 45,"nombre","apellido","nombreCompleto","abreviasion","url");
-        RegistrarPiloto registrarPiloto=new RegistrarPiloto(registrarPilotoRepositorio);
-        //Act
+        Random random = new Random();
+        Piloto miPiloto=Piloto.Instancia(random.nextInt(),"nombre","apellido","nombreCompleto","abreviasion","url");
+
         when(registrarPilotoRepositorio.existeNombre(miPiloto.getNombre())).thenReturn(false);
         when(registrarPilotoRepositorio.existeAbreviasion(miPiloto.getAbreviasion())).thenReturn(true);
+
         boolean resultado=registrarPiloto.cargarPiloto(miPiloto);
-        //Assert
+
         Assertions.assertFalse(resultado);
     }
 }

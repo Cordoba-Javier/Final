@@ -2,23 +2,19 @@ package ar.edu.undec.pilotos.crudRepositorio;
 
 import ar.edu.undec.pilotos.crud.CrudPiloto;
 import ar.edu.undec.pilotos.mapeo.Mapeo;
-import excepciones.ExcepcionPiloto;
 import modelo.Piloto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import repositorio.RegistrarPilotoRepositorio;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 @Repository
 public class CrudRepositorio implements RegistrarPilotoRepositorio {
 
-    CrudPiloto crudPiloto;
-
+    private CrudPiloto crudPiloto;
 
     @Autowired
     CrudRepositorio (CrudPiloto crudPiloto) {
@@ -37,12 +33,7 @@ public class CrudRepositorio implements RegistrarPilotoRepositorio {
 
     @Override
     public boolean guardarPiloto(Piloto miPiloto) {
-        return crudPiloto.save(Mapeo.mapeoCoreData(miPiloto)).getNombre()!=null;
-    }
-
-    @Override
-    public Optional<?>  getPiloto(String nombre) {
-        return crudPiloto.getByNombre(nombre);
+        return crudPiloto.save(Mapeo.mapeoCoreData(miPiloto)).getIdpiloto()!=null;
     }
 
     @Override

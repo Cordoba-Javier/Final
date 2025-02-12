@@ -2,7 +2,7 @@ package ar.edu.undec.pilotos.entidad;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.persistence.Column;
+
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PilotoDTO {
@@ -20,14 +20,6 @@ public class PilotoDTO {
     @JsonProperty("url")
     private  String url;
 
-    public PilotoDTO(Integer idpiloto, String nombre, String apellido, String nombreCompleto, String abreviasion, String url) {
-        this.idpiloto = idpiloto;
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.nombreCompleto = nombreCompleto;
-        this.abreviasion = abreviasion;
-        this.url = url;
-    }
 
     public PilotoDTO() {}
 

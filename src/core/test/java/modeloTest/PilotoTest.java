@@ -10,7 +10,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.Random;
 
 @ExtendWith(MockitoExtension.class)
-public class PilotosTest {
+public class PilotoTest {
     private Random rand = new Random();
 
     @Test

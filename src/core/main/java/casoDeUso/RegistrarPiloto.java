@@ -1,13 +1,9 @@
 package casoDeUso;
 
-import excepciones.ExcepcionPiloto;
 import input.EntradaPiloto;
 import modelo.Piloto;
-import org.springframework.http.HttpStatus;
 import repositorio.RegistrarPilotoRepositorio;
-
 import java.util.List;
-import java.util.Optional;
 
 public class RegistrarPiloto implements EntradaPiloto {
     private RegistrarPilotoRepositorio registrarPilotoRepositorio;
@@ -23,14 +19,6 @@ public class RegistrarPiloto implements EntradaPiloto {
             return true;
         }
         return  false;
-    }
-
-    @Override
-    public Optional<?> obtenerPiloto(String nombre) throws ExcepcionPiloto {
-        if (!registrarPilotoRepositorio.existeNombre(nombre))
-            throw new ExcepcionPiloto("", HttpStatus.BAD_REQUEST,"Piloto no existe");
-
-        return registrarPilotoRepositorio.getPiloto(nombre);
     }
 
     @Override

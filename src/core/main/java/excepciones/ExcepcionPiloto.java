@@ -2,7 +2,6 @@ package excepciones;
 
 import org.springframework.http.HttpStatus;
 
-
 public class ExcepcionPiloto extends RuntimeException {
     private String codigo;
     private HttpStatus estado;

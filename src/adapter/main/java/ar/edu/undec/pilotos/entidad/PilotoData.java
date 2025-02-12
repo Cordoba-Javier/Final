@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import modelo.Piloto;
 
 @Entity(name="pilotos")
-@SequenceGenerator(name = "pilotos_id_seq", initialValue = 1,sequenceName ="pilotos_id_seq", allocationSize = 1 )
+@SequenceGenerator(name = "pilotos_id_seq", initialValue =1,sequenceName ="pilotos_id_seq", allocationSize = 1 )
 public class PilotoData {
     @Id
     @Column(name="idpiloto")
@@ -36,16 +36,8 @@ public class PilotoData {
         return new PilotoData(piloto.getId(), piloto.getNombre(), piloto.getApellido(), piloto.getNombreCompleto(), piloto.getAbreviasion(), piloto.getUrl());
     }
 
-    public static PilotoData instancia(PilotoDTO piloto) {
-        return new PilotoData(piloto.getIdpiloto(), piloto.getNombre(), piloto.getApellido(), piloto.getNombreCompleto(), piloto.getAbreviasion(), piloto.getUrl());
-    }
-
     public Integer getIdpiloto() {
         return idpiloto;
-    }
-
-    public void setIdpiloto(Integer idpiloto) {
-        this.idpiloto = idpiloto;
     }
 
     public String getNombre() {
@@ -60,31 +52,16 @@ public class PilotoData {
         return apellido;
     }
 
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
-    }
-
     public String getNombreCompleto() {
         return nombreCompleto;
-    }
-
-    public void setNombreCompleto(String nombreCompleto) {
-        this.nombreCompleto = nombreCompleto;
     }
 
     public String getAbreviasion() {
         return abreviasion;
     }
 
-    public void setAbreviasion(String abreviasion) {
-        this.abreviasion = abreviasion;
-    }
-
     public String getUrl() {
         return url;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
-    }
 }
