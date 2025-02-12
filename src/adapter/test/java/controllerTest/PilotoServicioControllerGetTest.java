@@ -1,7 +1,6 @@
 package controllerTest;
 
-import ar.edu.undec.pilotos.contoller.PilotoServicioController;
-import ar.edu.undec.pilotos.servicio.PilotoServicio;
+import ar.edu.undec.pilotos.controller.PilotoServicioControllerGet;
 import input.EntradaPiloto;
 import modelo.Piloto;
 import org.junit.jupiter.api.Assertions;
@@ -18,34 +17,12 @@ import java.util.Random;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class PilotoServicioControllerTest {
-
-    @Mock
-    private PilotoServicio pilotoServicio;
-
+public class PilotoServicioControllerGetTest {
     @Mock
     private EntradaPiloto entradaPiloto;
 
     @InjectMocks
-    private PilotoServicioController pilotoServicioController;
-
-    @Test
-    public void testPilotoServicioSincronizarPilotosExitosa() {
-        ResponseEntity<?>esperado=ResponseEntity.status(HttpStatus.CREATED).body("Sincronización de pilotos correcta");
-        when(pilotoServicio.sincronizarPilotos()).thenReturn(true);
-        ResponseEntity<?> resultado=pilotoServicioController.sincronizarPilotos();
-        Assertions.assertEquals(esperado,resultado);
-    }
-
-    @Test
-    public void testPilotoServicioSincronizarPilotosNo()  {
-        ResponseEntity<?>esperado=ResponseEntity.status(HttpStatus.OK).body("No se agrego nuevos pilotos");
-        when(pilotoServicio.sincronizarPilotos()).thenReturn(false);
-
-        ResponseEntity<?> resultado=pilotoServicioController.sincronizarPilotos();
-        Assertions.assertEquals(esperado,resultado);
-
-    }
+    private PilotoServicioControllerGet pilotoServicioControllerGet;
 
     @Test
     public void testPilotoServicioListarPilotoExitosa() {
@@ -53,9 +30,9 @@ public class PilotoServicioControllerTest {
         Piloto piloto = Piloto.Instancia(rand.nextInt(900),"nombre","apellido","nombrecompleto","abreviacion","url" );
         List<Piloto> pilotos=new ArrayList<>();
         pilotos.add(piloto);
-        ResponseEntity<?>esperado=ResponseEntity.status(HttpStatus.OK).body(pilotos);
+        ResponseEntity<?> esperado=ResponseEntity.status(HttpStatus.OK).body(pilotos);
         when(entradaPiloto.listapiloto()).thenReturn(pilotos);
-        ResponseEntity<?> resultado=pilotoServicioController.listarPilotos();
+        ResponseEntity<?> resultado= pilotoServicioControllerGet.listarPilotos();
         Assertions.assertEquals(esperado,resultado);
     }
 
@@ -64,9 +41,8 @@ public class PilotoServicioControllerTest {
         List<Piloto> pilotos=new ArrayList<>();
         ResponseEntity<?>esperado=ResponseEntity.status(HttpStatus.OK).body("No hay pilotos cargados");
         when(entradaPiloto.listapiloto()).thenReturn(pilotos);
-        ResponseEntity<?> resultado=pilotoServicioController.listarPilotos();
+        ResponseEntity<?> resultado= pilotoServicioControllerGet.listarPilotos();
         Assertions.assertEquals(esperado,resultado);
     }
-
 
 }

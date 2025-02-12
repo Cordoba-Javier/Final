@@ -1,4 +1,4 @@
-package ar.edu.undec.pilotos.contoller;
+package ar.edu.undec.pilotos.controller;
 
 import ar.edu.undec.pilotos.entidad.ErrorDTO;
 import excepciones.ExcepcionPiloto;
