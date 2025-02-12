@@ -9,11 +9,12 @@ public class Mapeo {
         return PilotoData.instancia(piloto);
     }
 
-    public static Piloto maperoDataCore(PilotoData piloto)throws Exception{
+    public static Piloto maperoDataCore(PilotoData piloto){
         return Piloto.Instancia(piloto.getIdpiloto(), piloto.getNombre(), piloto.getApellido(), piloto.getNombreCompleto(), piloto.getAbreviasion(), piloto.getUrl());
     }
 
-    public static Piloto mapeoDTOCore(PilotoDTO piloto)throws Exception{
+    public static Piloto mapeoDTOCore(PilotoDTO piloto){
         return Piloto.Instancia(piloto.getIdpiloto(), piloto.getNombre(), piloto.getApellido(), piloto.getNombreCompleto(), piloto.getAbreviasion(), piloto.getUrl());
     }
+
 }

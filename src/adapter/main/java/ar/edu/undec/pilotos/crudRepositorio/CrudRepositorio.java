@@ -6,10 +6,15 @@ import modelo.Piloto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import repositorio.RegistrarPilotoRepositorio;
+
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
+
 @Repository
 public class CrudRepositorio implements RegistrarPilotoRepositorio {
 
-    CrudPiloto crudPiloto;
+    private CrudPiloto crudPiloto;
 
     @Autowired
     CrudRepositorio (CrudPiloto crudPiloto) {
@@ -28,11 +33,13 @@ public class CrudRepositorio implements RegistrarPilotoRepositorio {
 
     @Override
     public boolean guardarPiloto(Piloto miPiloto) {
-        try {
-            return crudPiloto.save(Mapeo.mapeoCoreData(miPiloto)).getNombre()!=null;
-        }catch (Exception e) {
-            return false;
-        }
+        return crudPiloto.save(Mapeo.mapeoCoreData(miPiloto)).getIdpiloto()!=null;
+    }
 
+    @Override
+    public List<Piloto> getPilotos() {
+            return StreamSupport.stream(crudPiloto.findAll().spliterator(), false)
+                    .map(Mapeo::maperoDataCore)
+                    .collect(Collectors.toList());
     }
 }

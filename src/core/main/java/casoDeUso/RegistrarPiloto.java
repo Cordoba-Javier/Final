@@ -1,27 +1,28 @@
 package casoDeUso;
 
-import excepciones.ExcepcionPiloto;
 import input.EntradaPiloto;
 import modelo.Piloto;
 import repositorio.RegistrarPilotoRepositorio;
+import java.util.List;
 
 public class RegistrarPiloto implements EntradaPiloto {
-    private final RegistrarPilotoRepositorio registrarPilotoRepositorio;
+    private RegistrarPilotoRepositorio registrarPilotoRepositorio;
 
     public RegistrarPiloto(RegistrarPilotoRepositorio registrarPilotoRepositorio) {
         this.registrarPilotoRepositorio = registrarPilotoRepositorio;
     }
 
     @Override
-    public boolean cargarPiloto(Piloto piloto) throws ExcepcionPiloto {
+    public boolean cargarPiloto(Piloto piloto){
+        if (!registrarPilotoRepositorio.existeNombre(piloto.getNombre()) && !registrarPilotoRepositorio.existeAbreviasion(piloto.getAbreviasion())){
+            registrarPilotoRepositorio.guardarPiloto(piloto);
+            return true;
+        }
+        return  false;
+    }
 
-        if(registrarPilotoRepositorio.existeNombre(piloto.getNombre()))
-            throw new ExcepcionPiloto("Nombre ya existe");
-
-        if(registrarPilotoRepositorio.existeAbreviasion(piloto.getAbreviasion()))
-            throw new ExcepcionPiloto("Abreviasion ya existe");
-
-        registrarPilotoRepositorio.guardarPiloto(piloto);
-        return true;
+    @Override
+    public List<Piloto> listapiloto() {
+        return registrarPilotoRepositorio.getPilotos();
     }
 }

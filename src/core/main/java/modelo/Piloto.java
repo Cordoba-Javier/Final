@@ -1,16 +1,17 @@
 package modelo;
 
 import excepciones.ExcepcionPiloto;
+import org.springframework.http.HttpStatus;
 
 public class Piloto {
-    private  Long id;
+    private  Integer id;
     private  String nombre;
     private  String apellido;
     private  String nombreCompleto;
     private  String abreviasion;
     private  String url;
 
-    private Piloto(Long id, String nombre, String apellido, String nombreCompleto, String abreviasion, String url) {
+    private Piloto(Integer id, String nombre, String apellido, String nombreCompleto, String abreviasion, String url) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -19,69 +20,49 @@ public class Piloto {
         this.url = url;
     }
 
-    public static Piloto Instancia(Long id, String nombre, String apellido, String nombreCompleto, String abreviasion, String url) throws ExcepcionPiloto {
-        if(id==null)
-            throw new ExcepcionPiloto("El id del piloto no puede ser nulo");
+    public static Piloto Instancia(Integer id, String nombre, String apellido, String nombreCompleto, String abreviasion, String url) {
+        if (id==null)
+            throw new ExcepcionPiloto("400",HttpStatus.BAD_REQUEST,"id nulo");
+
         if(nombre==null && nombre.isEmpty())
-            throw new ExcepcionPiloto("Nombre Nulo");
+            throw new ExcepcionPiloto("400", HttpStatus.BAD_REQUEST,"Nombre Nulo");
 
         if (apellido==null && apellido.isEmpty())
-            throw new ExcepcionPiloto("Apellido Nulo");
+            throw new ExcepcionPiloto("400", HttpStatus.BAD_REQUEST,"Apellido Nulo");
 
         if(nombreCompleto==null && nombreCompleto.isEmpty())
-            throw new ExcepcionPiloto("Nombre Completo Nulo");
+            throw new ExcepcionPiloto("400", HttpStatus.BAD_REQUEST,"Nombre Completo Nulo");
 
         if(abreviasion==null && abreviasion.isEmpty())
-            throw new ExcepcionPiloto("Abreviasion Nulo");
+            throw new ExcepcionPiloto("400", HttpStatus.BAD_REQUEST,"Abreviasion Nulo");
 
         if(url==null && url.isEmpty())
-            throw new ExcepcionPiloto("URL Nulo");
-
+            throw new ExcepcionPiloto("400", HttpStatus.BAD_REQUEST,"URL Nulo");
         return new Piloto(id, nombre, apellido, nombreCompleto, abreviasion, url);
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-
     public String getNombre() {
         return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
     }
 
     public String getApellido() {
         return apellido;
     }
 
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
-    }
-
     public String getNombreCompleto() {
         return nombreCompleto;
-    }
-
-    public void setNombreCompleto(String nombreCompleto) {
-        this.nombreCompleto = nombreCompleto;
     }
 
     public String getAbreviasion() {
         return abreviasion;
     }
 
-    public void setAbreviasion(String abreviasion) {
-        this.abreviasion = abreviasion;
-    }
-
     public String getUrl() {
         return url;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
-    }
 }

@@ -2,13 +2,13 @@ package ar.edu.undec.pilotos.entidad;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.persistence.Column;
+
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PilotoDTO {
 
     @JsonProperty("idpiloto")
-    private  Long idpiloto;
+    private  Integer idpiloto;
     @JsonProperty("nombre")
     private  String nombre;
     @JsonProperty("apellido")
@@ -20,23 +20,15 @@ public class PilotoDTO {
     @JsonProperty("url")
     private  String url;
 
-    public PilotoDTO(Long idpiloto, String nombre, String apellido, String nombreCompleto, String abreviasion, String url) {
-        this.idpiloto = idpiloto;
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.nombreCompleto = nombreCompleto;
-        this.abreviasion = abreviasion;
-        this.url = url;
-    }
 
     public PilotoDTO() {}
 
 
-    public Long getIdpiloto() {
+    public Integer getIdpiloto() {
         return idpiloto;
     }
 
-    public void setIdpiloto(Long idpiloto) {
+    public void setIdpiloto(Integer idpiloto) {
         this.idpiloto = idpiloto;
     }
 
