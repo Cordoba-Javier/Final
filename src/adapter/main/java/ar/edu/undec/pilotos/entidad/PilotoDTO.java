@@ -8,7 +8,7 @@ import jakarta.persistence.Column;
 public class PilotoDTO {
 
     @JsonProperty("idpiloto")
-    private  Long idpiloto;
+    private  Integer idpiloto;
     @JsonProperty("nombre")
     private  String nombre;
     @JsonProperty("apellido")
@@ -20,7 +20,7 @@ public class PilotoDTO {
     @JsonProperty("url")
     private  String url;
 
-    public PilotoDTO(Long idpiloto, String nombre, String apellido, String nombreCompleto, String abreviasion, String url) {
+    public PilotoDTO(Integer idpiloto, String nombre, String apellido, String nombreCompleto, String abreviasion, String url) {
         this.idpiloto = idpiloto;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -32,11 +32,11 @@ public class PilotoDTO {
     public PilotoDTO() {}
 
 
-    public Long getIdpiloto() {
+    public Integer getIdpiloto() {
         return idpiloto;
     }
 
-    public void setIdpiloto(Long idpiloto) {
+    public void setIdpiloto(Integer idpiloto) {
         this.idpiloto = idpiloto;
     }
 

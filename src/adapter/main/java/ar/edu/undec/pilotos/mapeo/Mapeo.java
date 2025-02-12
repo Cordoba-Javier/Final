@@ -2,6 +2,7 @@ package ar.edu.undec.pilotos.mapeo;
 
 import ar.edu.undec.pilotos.entidad.PilotoDTO;
 import ar.edu.undec.pilotos.entidad.PilotoData;
+import excepciones.ExcepcionPiloto;
 import modelo.Piloto;
 
 public class Mapeo {
@@ -9,11 +10,11 @@ public class Mapeo {
         return PilotoData.instancia(piloto);
     }
 
-    public static Piloto maperoDataCore(PilotoData piloto)throws Exception{
+    public static Piloto maperoDataCore(PilotoData piloto)throws ExcepcionPiloto {
         return Piloto.Instancia(piloto.getIdpiloto(), piloto.getNombre(), piloto.getApellido(), piloto.getNombreCompleto(), piloto.getAbreviasion(), piloto.getUrl());
     }
 
-    public static Piloto mapeoDTOCore(PilotoDTO piloto)throws Exception{
+    public static Piloto mapeoDTOCore(PilotoDTO piloto)throws ExcepcionPiloto{
         return Piloto.Instancia(piloto.getIdpiloto(), piloto.getNombre(), piloto.getApellido(), piloto.getNombreCompleto(), piloto.getAbreviasion(), piloto.getUrl());
     }
 

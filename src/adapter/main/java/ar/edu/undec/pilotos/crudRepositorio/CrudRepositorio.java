@@ -37,12 +37,7 @@ public class CrudRepositorio implements RegistrarPilotoRepositorio {
 
     @Override
     public boolean guardarPiloto(Piloto miPiloto) {
-        try {
-            return crudPiloto.save(Mapeo.mapeoCoreData(miPiloto)).getNombre()!=null;
-        }catch (Exception e) {
-            return false;
-        }
-
+        return crudPiloto.save(Mapeo.mapeoCoreData(miPiloto)).getNombre()!=null;
     }
 
     @Override
@@ -53,14 +48,7 @@ public class CrudRepositorio implements RegistrarPilotoRepositorio {
     @Override
     public List<Piloto> getPilotos() {
             return StreamSupport.stream(crudPiloto.findAll().spliterator(), false)
-                    .map(pilotoData -> {
-                        try {
-                            return Mapeo.maperoDataCore(pilotoData); // Llama al mapeo
-                        } catch (Exception e) {
-                            System.err.println("Error al mapear: " + e.getMessage());
-                            return null;  // O manejarlo de alguna otra forma, como retornar un valor por defecto
-                        }
-                    })
+                    .map(Mapeo::maperoDataCore)
                     .collect(Collectors.toList());
     }
 }

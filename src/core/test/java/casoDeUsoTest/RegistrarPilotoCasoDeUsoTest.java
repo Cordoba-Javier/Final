@@ -10,6 +10,8 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import repositorio.RegistrarPilotoRepositorio;
 
+import java.util.Random;
+
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -17,9 +19,12 @@ public class RegistrarPilotoCasoDeUsoTest {
 
     @Mock
     RegistrarPilotoRepositorio registrarPilotoRepositorio;
+
+
+
     @Test
     void registrarPilotoNoExiste()throws ExcepcionPiloto {
-        Piloto miPiloto=Piloto.Instancia(7l,"nombre","apellido","nombreCompleto","abreviasion","url");
+        Piloto miPiloto=Piloto.Instancia((Integer) 45,"nombre","apellido","nombreCompleto","abreviasion","url");
         RegistrarPiloto registrarPiloto=new RegistrarPiloto(registrarPilotoRepositorio);
 
         when(registrarPilotoRepositorio.existeNombre(miPiloto.getNombre())).thenReturn(false);
@@ -34,23 +39,27 @@ public class RegistrarPilotoCasoDeUsoTest {
     @Test
     void registrarPilotoYaExisteNombre()throws ExcepcionPiloto {
         //Arrage
-        Piloto miPiloto=Piloto.Instancia(7l,"nombre","apellido","nombreCompleto","abreviasion","url");
+        Piloto miPiloto=Piloto.Instancia((Integer) 45,"nombre","apellido","nombreCompleto","abreviasion","url");
         RegistrarPiloto registrarPiloto=new RegistrarPiloto(registrarPilotoRepositorio);
         //Act
+
         when(registrarPilotoRepositorio.existeNombre(miPiloto.getNombre())).thenReturn(true);
+
+        boolean resultado=registrarPiloto.cargarPiloto(miPiloto);
         //Assert
-        Assertions.assertThrows(ExcepcionPiloto.class,()->registrarPiloto.cargarPiloto(miPiloto));
+        Assertions.assertFalse(resultado);
     }
 
     @Test
     void registrarPilotoYaExisteAbreviacion()throws ExcepcionPiloto {
         //Arrage
-        Piloto miPiloto=Piloto.Instancia(7l,"nombre","apellido","nombreCompleto","abreviasion","url");
+        Piloto miPiloto=Piloto.Instancia((Integer) 45,"nombre","apellido","nombreCompleto","abreviasion","url");
         RegistrarPiloto registrarPiloto=new RegistrarPiloto(registrarPilotoRepositorio);
         //Act
         when(registrarPilotoRepositorio.existeNombre(miPiloto.getNombre())).thenReturn(false);
         when(registrarPilotoRepositorio.existeAbreviasion(miPiloto.getAbreviasion())).thenReturn(true);
+        boolean resultado=registrarPiloto.cargarPiloto(miPiloto);
         //Assert
-        Assertions.assertThrows(ExcepcionPiloto.class,()->registrarPiloto.cargarPiloto(miPiloto));
+        Assertions.assertFalse(resultado);
     }
 }
