@@ -1,6 +1,6 @@
 package servico;
 
-import ar.edu.undec.pilotos.servicio.PilotoServicio;
+import ar.edu.undec.pilotos.servicio.ConsumoApi;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -22,7 +22,7 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
-public class PilotoServicioTest {
+public class ConsumoApiTest {
 
     @Mock
     private RestTemplate restTemplate;
@@ -34,13 +34,13 @@ public class PilotoServicioTest {
     private ObjectMapper objectMapper;
 
     @InjectMocks
-    private PilotoServicio pilotoServicio;
+    private ConsumoApi consumoApi;
 
 
     @Test
     public void testPilotoServicioSincronizar()  {
         try {
-            String jsonResp ="""
+            String jsonRespuesta ="""
                 [
                     {"session_key": 1, "first_name": "Max", "last_name": "Verstappen", "full_name": "Max Verstappen", 
                      "name_acronym": "VER", "headshot_url": "https://www.formula1.com/content/dam/fom-website/drivers/M/MAXVER01_Max_Verstappen/maxver01.png.transform/1col/image.png"},
@@ -49,13 +49,13 @@ public class PilotoServicioTest {
                 ]
                 """;
 
-            List<Map<String, Object>> pilotosJsonList =new ObjectMapper().readValue(jsonResp, new TypeReference<>() {});
+            List<Map<String, Object>> pilotosJsonList =new ObjectMapper().readValue(jsonRespuesta, new TypeReference<>() {});
 
-            when(restTemplate.getForObject(any(String.class), eq(String.class))).thenReturn(jsonResp);
+            when(restTemplate.getForObject(any(String.class), eq(String.class))).thenReturn(jsonRespuesta);
             when(objectMapper.readValue(any(String.class), ArgumentMatchers.<TypeReference<List<Map<String, Object>>>>any())).thenReturn(pilotosJsonList);
             when(entradaPiloto.cargarPiloto(any(Piloto.class))).thenReturn(true);
 
-            boolean resultado = pilotoServicio.sincronizarPilotos();
+            boolean resultado = consumoApi.sincronizarPilotos();
 
             Assertions.assertTrue(resultado);
         }catch (JsonProcessingException e) {
@@ -66,7 +66,7 @@ public class PilotoServicioTest {
     @Test
     public void testPilotoServicioSincronizarNoHayNuevosPilotos()  {
         try {
-            String jsonResp ="""
+            String jsonRespuesta ="""
                 [
                     {"session_key": 1, "first_name": "Max", "last_name": "Verstappen", "full_name": "Max Verstappen", 
                      "name_acronym": "VER", "headshot_url": "https://www.formula1.com/content/dam/fom-website/drivers/M/MAXVER01_Max_Verstappen/maxver01.png.transform/1col/image.png"},
@@ -75,13 +75,13 @@ public class PilotoServicioTest {
                 ]
                 """;
 
-            List<Map<String, Object>> pilotosJsonList =new ObjectMapper().readValue(jsonResp, new TypeReference<>() {});
+            List<Map<String, Object>> pilotosJsonList =new ObjectMapper().readValue(jsonRespuesta, new TypeReference<>() {});
 
-            when(restTemplate.getForObject(any(String.class), eq(String.class))).thenReturn(jsonResp);
+            when(restTemplate.getForObject(any(String.class), eq(String.class))).thenReturn(jsonRespuesta);
             when(objectMapper.readValue(any(String.class), ArgumentMatchers.<TypeReference<List<Map<String, Object>>>>any())).thenReturn(pilotosJsonList);
             when(entradaPiloto.cargarPiloto(any(Piloto.class))).thenReturn(false);
 
-            boolean resultado = pilotoServicio.sincronizarPilotos();
+            boolean resultado = consumoApi.sincronizarPilotos();
 
             Assertions.assertFalse(resultado);
         }catch (JsonProcessingException e) {
@@ -91,7 +91,7 @@ public class PilotoServicioTest {
 
     @Test
     public void testPilotoServicioSincronizarFalloEnDeserealizacion() {
-        String jsonResp = """
+        String jsonRespuesta = """
                 [
                     {"session_": 1, "ft_name": "Max", "last_name": "Verstappen", "full_name": "Max Verstappen", 
                      "name_acronym": "ER", "headshot_url": "https://www.formula1.com/content/dam/fom-website/drivers/M/MAXVER01_Max_Verstappen/maxver01.png.transform/1col/image.png"
@@ -100,7 +100,7 @@ public class PilotoServicioTest {
                     
                 ]
                 """;
-        Assertions.assertThrows(JsonProcessingException.class, () -> new ObjectMapper().readValue(jsonResp, new TypeReference<List<Map<String, Object>>>() {}));
+        Assertions.assertThrows(JsonProcessingException.class, () -> new ObjectMapper().readValue(jsonRespuesta, new TypeReference<List<Map<String, Object>>>() {}));
 
     }
 }
